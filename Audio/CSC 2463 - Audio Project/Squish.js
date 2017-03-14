@@ -13,20 +13,45 @@ var gameState = 0; //sets game state to start screen
 var animationSpeed = 4;
 var previousScore = score;
 var gameAudio;
+var squishSound;
+var freeverb;
+var lfo;
+var spiderNoise;
+var themeMusic;
+var introSong;
+var gameOverSong;
+var youWinSong;
 
 function preload(){
 	for(var i = 0; i < count; i++){
 		spider[i] = new Walker("SpiderSprite.png", random(560) + 40, random(400) +20, random([-1, +1]), alive);
 	}
 
-	gameAudio = new Tone.Player("BugSong.mp3").toMaster();
+	//Audio Preload
+	gameAudio = new Tone.Player("media/BugSong.mp3").toMaster();
+	themeMusic = new Tone.Player("media/ThemeSong.mp3").toMaster();
+	introSong = new Tone.Player("media/IntroSong.mp3").toMaster();
+	gameOverSong = new Tone.Player("media/GameOverSong.mp3").toMaster();
+	youWinSong = new Tone.Player("media/YouWinSong.mp3").toMaster();
+	squishSound = new Tone.NoiseSynth();
+	squishSound.volume.value = +6;
+	freeverb = new Tone.Freeverb().toMaster();
+	freeverb.roomSize = .2;
+	squishSound.connect(freeverb);
+	lfo = new Tone.LFO(10, -64, -35).start();
+	spiderNoise = new Tone.Noise().toMaster();
+	lfo.connect(spiderNoise.volume);
 }
 
 function setup() {
 	createCanvas(640, 480);
 	imageMode(CENTER);
-
 	gameAudio.autostart = false;
+	themeMusic.autostart = false;
+	introSong.autostart = true;
+	introSong.loop = true;
+	gameOverSong.loop = true;
+	youWinSong.loop = true;
 }
 
 function clicked(){
@@ -51,8 +76,11 @@ function draw(){
 			fill(0, 0, 150, 50);
 			rect(230, 200, 130, 50);
 			if(mouseX >= 230 && mouseX <= 330 && mouseY >= 200 && mouseY <=250 && click == true){
-				gameState = 1;
+				introSong.stop();
+				gameAudio.start();
+				spiderNoise.start();
 				startTime = second();
+				gameState = 1;
 			}
 		}
 	//Set game to play state
@@ -67,10 +95,12 @@ function draw(){
 		fill(255, 255, 255);
 		text("Time Remaining: " + timeRemaining, 400, 450);
 		if(timeRemaining == 0){
+			gameAudio.stop();
+			spiderNoise.stop();
+			gameOverSong.start();
 			gameState = 3;
-		}
 
-		gameAudio.start();
+		}
 	}
 	if(gameState == 3){
 		fill(255, 255, 255);
@@ -82,6 +112,9 @@ function draw(){
 		text("Refresh the page to play again.", 230, 400);
 	}
 	if(score == 50){
+		gameAudio.stop();
+		spiderNoise.stop();
+		youWinSong.start();
 		gameState = 4; //set game state to 'You Win' mode
 	}
 	if(gameState == 4){
@@ -144,15 +177,19 @@ function Walker(imageName, x, y, moving, alive){
 				//Main Logic code
 				if(score >= 0 && score < 5){
 					animationSpeed = 3;
+					gameAudio.volume.value = -20;
 				}
 				if(score >= 5 && score <= 10){
 					animationSpeed = 2;
+					gameAudio.volume.value = -5;
 				}
 				if(score > 10 && score < 15){
 					animationSpeed = 1;
+					gameAudio.volume.value = +10;
 				}
 				if(score >= 15){
 					animationSpeed = .5;
+					gameAudio.volume.value = +25;
 				}
 
 				if(frameCount % animationSpeed == 0){
@@ -192,6 +229,7 @@ function Walker(imageName, x, y, moving, alive){
 			this.initialY = this.y;
 			if(this.alive == true){
 				score++;
+				squishSound.triggerAttackRelease("16n");
 			}
 			this.alive = false;
 		}
@@ -203,10 +241,3 @@ function mousePressed(){
 		spider[i].squish(mouseX, mouseY);
 	}
 }
-
-// function mouseReleased(){
-// 	for(var i = 0; i < count; i++){
-// 		spider[i].drop();
-
-// 	}
-// }
