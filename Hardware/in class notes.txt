@@ -1,0 +1,13 @@
+in class notes
+
+number of page references is how many rows in the file
+
+number of page faults is number of page misses in memory
+
+cost for page faults is cost for swapping and page misses and the cost to evict a dirty page from memory to the disk
+
+cost for only writing diry pages
+
+2nd number is for writing out dirty pages
+
+if you do not follow exact output update readme

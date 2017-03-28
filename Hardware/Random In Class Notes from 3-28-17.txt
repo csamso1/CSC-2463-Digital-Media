@@ -1,0 +1,16 @@
+also need to put p5.serial libary in index.html and download the .js file also from GitHub
+
+npm install
+
+alpha 5 includes server...
+
+void setup(){
+	Serial.begin(9600); //intiialize serial communications
+}
+
+void loop(){
+	int potentiometer = analogRead(A0); //read the input pin
+	int mappedPot = map(potentiometer, 0, 1023, )
+	Serial.print(mappedPort); //use print to send readable text not bytes
+
+}

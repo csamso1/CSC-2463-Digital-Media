@@ -1,0 +1,10 @@
+Digital Media HARDWARE notes
+
+PWM - Post With Modulation
+
+Constants when compiles fills in that value everyewher so a little more efficent
+(const)
+
+can use pullup instead of resistor...
+
+Example 05 :fade LED ...

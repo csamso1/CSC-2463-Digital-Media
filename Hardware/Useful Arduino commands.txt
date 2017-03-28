@@ -1,0 +1,23 @@
+Useful Arduino commands
+
+//How to interact with Arduino console, particularlly for analog inputs
+Serial.begin(9600); //Call in setup function
+Serial.print(value); //Serial.write() is also a thing that is similar
+Serial.println(value);
+
+const int var_name = value //Constants are more efficent
+
+own function
+
+datatype name(arguments){
+	return
+}
+
+upper case firs letter names are generally for classes
+
+pinmode pullup
+- pullup looks for zero volts instead of 5 volts
+
+digitalRead
+
+Tone
