@@ -1,6 +1,7 @@
 var serial;
 var portName = 'COM3';
 var inData;
+var outByte = 0;
 
 function setup() 
 {
@@ -54,4 +55,14 @@ function serialError(err) {
 
 function portClose() {
   text('The serial port closed.');
+}
+
+function mouseClicked(){
+	if(outByte == 1){
+		outByte = 0;
+	}
+	else{
+		outByte = 1;
+	}
+	serial.write(outByte);
 }
