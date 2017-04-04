@@ -1,3 +1,6 @@
+//Clayton Samson
+//YouTube Video Link: https://youtu.be/imPIlaluQDg
+
 int incomingByte; //var to store incoming serial data
 
 void setup() {
