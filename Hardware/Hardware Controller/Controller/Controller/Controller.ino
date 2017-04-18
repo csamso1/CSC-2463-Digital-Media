@@ -1,5 +1,5 @@
 //Clayton Samson
-//YouTube Video Link:
+//YouTube Video Link:https://youtu.be/lPzIzW6SMA4
 
 int incomingByte; //var to store incoming serial data
 const int BUTTON = 7; //Input pin for the button

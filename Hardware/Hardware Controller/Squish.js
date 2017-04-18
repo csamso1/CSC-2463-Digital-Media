@@ -87,7 +87,6 @@ function clicked(){
 function draw(){
 	background(0, 110, 0);
 	fill(255, 255, 255);
-	text("sensor value: " + inData, 30, 30);
 	if (gameState == 0){
 			textSize(50);
 			fill(255, 255, 255);
@@ -273,14 +272,8 @@ function cross(y){
 	ellipse(300, y, 8, 8);
 }
 
-// function mousePressed(){
-// 	for(var i = 0; i < count; i++){
-// 		spider[i].squish(300, crossY);
-// 	}
-// }
-
 function crossPressed(y){
-	text("crossPressed[" + y +"]", 200, 300);
+	// text("crossPressed[" + y +"]", 200, 300);
 	for(var i = 0; i < count; i++){
 		spider[i].squish(300, y);
 	}
