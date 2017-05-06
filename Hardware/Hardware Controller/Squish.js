@@ -299,6 +299,7 @@ function portOpen() {
 
 function serialEvent() {
   // read a byte from the serial port, convert it to a number:
+  // To bring in an value (String) larger than 255 we will need to use serial.***(); something else other than read
   inData = Number(serial.read());
 }
 
